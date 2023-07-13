@@ -1,20 +1,25 @@
 import { useContext } from "react"
 import { Clubs } from "../clubs"
 import { EditorContext } from "../App"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { useMutation } from "convex/react"
+import { api } from "../../convex/_generated/api"
+import DeleteButton from "./DeleteButton"
+import { Id } from "../../convex/_generated/dataModel"
 
 interface FixtureItemProps {
 	team1: string,
 	time: string,
-	team2: string
+	team2: string,
+	docId: Id<"fixtures_day_1">
 }
 
-export default function FixtureItem({team1, time, team2}: FixtureItemProps) {
+export default function FixtureItem({team1, time, team2, docId}: FixtureItemProps) {
 	const Team1 = Clubs[team1] 
 	const Team2 = Clubs[team2]
 
 	const { displayMode } = useContext(EditorContext)
+
+	const deleteFunction = useMutation(api.fixtures.removeFixture)
 
 	return <>
 		<div className="fixture-item">
@@ -27,7 +32,7 @@ export default function FixtureItem({team1, time, team2}: FixtureItemProps) {
 				<img src={Team2.icon} alt={Team2.label} />
 				{Team2.short}
 			</div>
-			{!displayMode && <></>}
+			{!displayMode && <DeleteButton deleteFunction={() =>  void deleteFunction({docId})}/>}
 		</div>
 	</>
 }

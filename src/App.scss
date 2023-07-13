@@ -253,8 +253,10 @@
       display: flex;
       padding: 0.5rem;
       border-radius: 0.5rem;
+      color: white;
       user-select: none;
       cursor: pointer;
+
       &.disabled {
         color: grey;
         cursor: not-allowed;

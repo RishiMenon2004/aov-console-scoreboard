@@ -35,6 +35,6 @@ import { mutation, query } from "./_generated/server"
 	return
  })
 
- export const removeFixture = mutation(async ({db}, { docId }: { docId: Id<"participating_clubs">}) => {
+ export const removeFixture = mutation(async ({db}, { docId }: { docId: Id<"fixtures_day_1">}) => {
 	await db.delete(docId)
  })

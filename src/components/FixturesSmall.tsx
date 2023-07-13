@@ -25,7 +25,7 @@ export default function FixturesSmall() {
 			</div>
 			<div className="fixture-items">
 				{fixtures.map(fixtureItem => {
-					return <FixtureItem team1={fixtureItem.team1_id} time={fixtureItem.time} team2={fixtureItem.team2_id} key={fixtureItem._id}/>
+					return <FixtureItem team1={fixtureItem.team1_id} time={fixtureItem.time} team2={fixtureItem.team2_id} key={fixtureItem._id} docId={fixtureItem._id}/>
 				})}
 
 				{!displayMode && <div className="fixture-item button" onClick={() => setFixtureEditorIsActive(true)}>

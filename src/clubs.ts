@@ -9,7 +9,7 @@ export interface ClubItem {
 
 export interface LeagueItem {
 	label: string,
-	clubs: ClubItem[]
+	clubs: (keyof typeof Clubs)[]
 }
 
 export const Clubs: { [key: string]: ClubItem } = {
@@ -29,8 +29,8 @@ export const Leagues: { [key: string]: LeagueItem } = {
 	premier_league: {
 		label: "Premier League",
 		clubs: [
-			Clubs.arsenal,
-			Clubs.burnley
+			"arsenal",
+			"burnley"
 		]
 	}
 }

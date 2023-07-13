@@ -1,0 +1,385 @@
+#root {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 1rem;
+  gap: 1rem;
+
+  grid-template-columns: 20% 1fr;
+}
+
+.title-header {
+  background-image: linear-gradient(45deg, hsl(194, 100%, 62%), hsl(270, 100%, 66%));
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+
+  h2, h3 {
+    margin: 0;
+  }
+}
+
+@property --gradient-stop-1 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --gradient-stop-2 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 100%;
+}
+@property --gradient-stop-3 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 600%;
+}
+
+.standings {
+  background-color: var(--primary-background-color);
+  color: black;
+  overflow: hidden;
+
+  .clubs-list {
+
+    display: grid;
+    place-items: center;
+
+    .club-item {
+      box-sizing: border-box;
+      width: calc(100% - 1rem);
+      display: grid;
+      grid-template-columns: auto repeat(3, 20%);
+      padding-inline-start: 1rem;
+
+      &:not(:last-child) {
+        border-bottom: 1px hsl(0, 0%, 90%) solid;
+      }
+
+      &.header {
+        border-bottom: 2px hsl(0, 0%, 90%) solid;
+      }
+
+      & > div {
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+        color: var(--accent-color);
+        padding-block: 0.5rem;
+
+        &.label {
+          .counter {
+            width: 2rem;
+            font-size: 1em;
+            color: hsl(0, 0%, 40%)
+          }
+
+          .label-text {
+            display: flex;
+            font-weight: 600;
+            width: 100%;
+            align-items: center;
+            justify-items: start;
+
+            img {
+              height: 2.75rem;
+              user-select: none;
+            }
+          }
+        }
+
+        justify-content: center;
+      }
+
+      &.button {
+        margin-block: 0.5rem;
+  
+        .label > .label-text {
+          color: white;
+          gap: 0.5rem;
+        }
+      }
+
+      &:not(.header) {
+        .label {
+          justify-content: start;
+        }
+      }
+    }
+  }
+}
+
+.button {
+
+  --gradient-stop-1: 0%;
+  --gradient-stop-2: 100%;
+  --gradient-stop-3: 600%;
+
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  transition: --gradient-stop-1 500ms cubic-bezier(1,.24,.34,.99), --gradient-stop-2 500ms cubic-bezier(1,.24,.34,.99), --gradient-stop-3 1000ms cubic-bezier(1,.24,.34,.99);
+  background-image: linear-gradient(45deg, hsl(194, 100%, 62%) var(--gradient-stop-1), hsl(270, 100%, 66%) var(--gradient-stop-2), hsl(340, 100%, 65%) var(--gradient-stop-3));
+
+  
+  &:hover {
+    cursor: pointer;
+    --gradient-stop-1: -100%;
+    --gradient-stop-2: 0%;
+    --gradient-stop-3: 75%;
+  }
+
+  &.delete {
+    padding: 0.5rem;
+    aspect-ratio: 1;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background-image: linear-gradient(45deg, 
+    hsl(340, 100%, 65%) var(--gradient-stop-1), 
+    hsl(30, 100%, 66%) var(--gradient-stop-2), 
+    hsl(341, 100%, 65%) var(--gradient-stop-3));
+    color: white;
+  }
+}
+
+.fixtures-small {
+  background-color: var(--primary-background-color);
+  overflow: hidden;
+  color: var(--accent-color);
+
+  .fixture-date {
+    padding-block-start: 1rem;
+    font-size: 1.25em;
+    text-align: center;
+    font-family: "Montserrat";
+  }
+
+  .fixture-items {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    gap: 1px;
+    height: 100%;
+    
+  
+    .fixture-item {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      width: 90%;
+      box-sizing: border-box;
+      padding-block: 1rem;
+      align-items: center;
+
+      &.button {
+        color: white;
+        font-weight: 600;
+        font-size: 1.25rem;
+        padding: 0.5rem;
+        margin-block: 0.5rem;
+        display: flex;
+        align-items: center;
+        
+        & > svg {
+          display: block;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px hsl(0, 0%, 90%) solid;
+      }
+
+      .fixture-timing {
+        border: 1px hsl(0, 0%, 0%, 0.25) solid;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        text-align: center;
+
+        min-width: 5ch;
+      }
+
+      .fixture-side {
+        color: var(--accent-color);
+        font-size: 1.15em;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 750;
+
+        img {
+          display: block;
+          height: 2.5rem;
+
+          user-select: none;
+        }
+      }
+    }
+  }
+}
+
+.underlay {
+  position: absolute;
+  background-color: hsl(0, 0%, 0%, 40%);
+  inset: 0;
+  z-index: 1;
+}
+
+.floating-window {
+  background-color: white;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+  z-index: 2;
+
+  border-radius: 0.5rem;
+
+  &:focus {
+    outline: none;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-top: 1px hsl(0, 0%, 90%) solid;
+
+    .close-window, .confirm-window {
+      display: flex;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      user-select: none;
+      cursor: pointer;
+      &.disabled {
+        color: grey;
+        cursor: not-allowed;
+      }
+    }
+
+    .close-window {
+      background-color: hsl(340, 100%, 50%);
+      
+      &.disabled {
+        background-color: hsl(340, 75%, 25%);
+      }
+    }
+
+    .confirm-window {
+      background-color: hsl(150, 85%, 45%);
+      
+      &.disabled {
+        background-color: hsl(150, 75%, 25%);
+      }
+    }
+  }
+}
+
+.fixture-editor-wrapper {
+  position: absolute;
+  inset: 0;
+  padding: 1rem;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  place-items: center;
+
+  .fixture-editor {
+    position: static;
+    grid-column: 2;
+    width: 100%;;
+
+    .editor-inputs {
+      display: flex;
+      padding: 1rem 0.5rem;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+    
+      .side-selector {
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        color: black;
+        border: 1px hsl(0, 0%, 0%, 0.25) solid;
+      
+        user-select: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .clubs-list {
+    box-sizing: border-box;
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(6, 4.75rem);
+    padding: 0.5rem;
+    min-height: 4.5rem;
+    height: fit-content;
+    border-radius: 0.5rem;
+  
+    .club-item {
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+
+      &:hover {
+        background-color: hsl(0, 0%, 0%, 20%);
+      }
+
+      img {
+        height: 4rem;
+        display: block;
+      }
+    }
+
+    &.empty {
+      display: flex;
+      min-width: calc(6 * 4.5rem);
+      align-items: center;
+      justify-content: center;
+      color: rgba(0, 0, 0, 0.37);
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.club-picker {
+  .clubs-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(6, 4.5rem);
+    padding: 0.5rem;
+    min-height: 4.5rem;
+
+    .club-item {
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+
+      &:hover {
+        background-color: hsl(0, 0%, 0%, 20%);
+      }
+
+      img {
+        height: 4rem;
+        display: block;
+      }
+    }
+
+    &.empty {
+      display: flex;
+      min-width: calc(6 * 4.5rem);
+      align-items: center;
+      justify-content: center;
+      color: rgba(0, 0, 0, 0.37);
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+  }
+}
